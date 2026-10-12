@@ -25,6 +25,9 @@ SEARCH_MIN_DELAY = 3         # do searches ke beech kam az kam itne second
 SEARCH_MAX_DELAY = 7         # aur zyada se zyada itne second
 
 # ---- Web UI login (app.py) ----
-APP_USERNAME = "admin"       # login username - apni marzi se badlo
-APP_PASSWORD = "admin123"    # login password - zaroor badlo
-APP_SECRET = "change-this-secret-key"
+
+import os
+
+APP_USERNAME = os.environ.get("APP_USERNAME", "admin")
+APP_PASSWORD = os.environ.get("APP_PASSWORD", "admin123")
+APP_SECRET = os.environ.get("APP_SECRET", "change-this-secret-key")
