@@ -1,0 +1,141 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gloves Lead Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--p:#0d9488;--p2:#14b8a6;--pd:#0f766e;--b:#e5e9f0;--m:#64748b;--d:#0b1220;--bg:#f4f7fb}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,sans-serif;background:var(--bg);color:#0f172a;-webkit-font-smoothing:antialiased}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-24px) scale(1.12)}}
+@keyframes shine{to{background-position:200% 0}}@keyframes stripes{to{background-position:40px 0}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #14b8a666}100%{box-shadow:0 0 0 14px #14b8a600}}
+.app{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+aside{background:linear-gradient(180deg,#0b1220,#0f2a2e);color:#e2e8f0;padding:26px 20px;position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:4px;animation:up .6s both}
+.logo{display:flex;align-items:center;gap:12px;margin:0 0 20px;font-weight:800;font-size:18px;color:#fff;letter-spacing:-.2px}
+.logo i{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--p2),#0891b2);display:grid;place-items:center;font-style:normal;font-size:20px;animation:pulse 2.4s infinite}
+.logo small{display:block;font-weight:500;font-size:11px;color:#94a3b8;letter-spacing:.04em}
+aside h4{margin:18px 0 8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#7c8ba1;font-weight:600}
+.opt{display:flex;gap:10px;align-items:center;padding:11px 14px;margin-bottom:7px;border:1px solid #1f3a40;border-radius:12px;cursor:pointer;font-size:14px;transition:.2s;background:#ffffff06}
+.opt:hover{border-color:var(--p2);transform:translateX(4px)}.opt:has(input:checked){background:linear-gradient(90deg,#0d948840,#0d948810);border-color:var(--p2);color:#fff}
+.opt input{accent-color:var(--p2);width:16px;height:16px}
+aside select,aside input[type=number]{width:100%;padding:11px 12px;border-radius:12px;border:1px solid #1f3a40;background:#0f1d2b;color:#fff;font-size:14px;font-family:inherit;transition:.2s}
+aside select:focus,aside input[type=number]:focus{outline:0;border-color:var(--p2);box-shadow:0 0 0 3px #14b8a633}
+#go{margin-top:18px;width:100%;padding:15px;border:0;border-radius:13px;background:linear-gradient(110deg,#0d9488,#14b8a6,#0891b2,#0d9488);background-size:250% 100%;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.25s;animation:shine 6s linear infinite;box-shadow:0 8px 22px #0d948855}
+#go:hover{transform:translateY(-2px);box-shadow:0 12px 28px #0d948877}#go:active{transform:none}#go:disabled{opacity:.6;cursor:wait;animation:none}
+.out{margin-top:auto;padding-top:18px}.out a{color:#94a3b8;font-size:13px;text-decoration:none;transition:.2s}.out a:hover{color:#fff}
+main{padding:26px 34px 50px;min-width:0}
+.hero{position:relative;overflow:hidden;border-radius:22px;padding:34px 36px;margin-bottom:22px;color:#fff;background:linear-gradient(120deg,#0b1220,#0f766e 70%,#0891b2);animation:up .6s .05s both}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(50px);opacity:.55;animation:float 9s ease-in-out infinite}
+.hero:before{width:260px;height:260px;background:#2dd4bf;right:-60px;top:-90px}.hero:after{width:200px;height:200px;background:#38bdf8;right:240px;bottom:-110px;animation-delay:-4s}
+.hero h2{position:relative;margin:0 0 8px;font-size:30px;font-weight:800;letter-spacing:-.6px}.hero p{position:relative;margin:0;max-width:560px;color:#cdeeea;font-size:15px;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+.st{background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 1px 2px #0f172a0d,0 10px 26px #0f172a08;transition:.25s;animation:up .6s both;border:1px solid #eef2f7}
+.st:nth-child(1){animation-delay:.1s}.st:nth-child(2){animation-delay:.18s}.st:nth-child(3){animation-delay:.26s}
+.st:hover{transform:translateY(-4px);box-shadow:0 14px 34px #0f172a14}
+.st span{font-size:12px;color:var(--m);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.st b{display:block;font-size:30px;margin-top:4px;background:linear-gradient(120deg,var(--pd),#0891b2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{background:#fff;border-radius:18px;padding:22px 24px;margin-bottom:22px;border:1px solid #eef2f7;box-shadow:0 1px 2px #0f172a0d,0 10px 26px #0f172a08;animation:up .6s .3s both}
+.h{font-size:17px;font-weight:700;margin:0 0 14px;display:flex;gap:10px;align-items:baseline;letter-spacing:-.2px}.m{color:var(--m);font-size:13px;font-weight:400}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input[type=text]{padding:11px 14px;border:1px solid #d5dce6;border-radius:12px;font-size:14px;font-family:inherit;transition:.2s}
+input[type=text]:focus{outline:0;border-color:var(--p2);box-shadow:0 0 0 4px #14b8a622}
+button.g{padding:10px 16px;border:1px solid var(--b);border-radius:11px;background:#fff;color:#334155;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;transition:.2s}
+button.g:hover{background:#f0fdfa;border-color:var(--p2);color:var(--pd);transform:translateY(-1px)}
+button.p{padding:10px 18px;border:0;border-radius:11px;background:linear-gradient(120deg,var(--p),var(--p2));color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:.2s;box-shadow:0 6px 16px #0d948844}
+button.p:hover{transform:translateY(-2px);box-shadow:0 10px 22px #0d948866}
+#list{margin-top:14px;height:430px;overflow:auto;border:1px solid var(--b);border-radius:14px;padding:8px;background:#fcfdfe}
+#list::-webkit-scrollbar{width:8px}#list::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+.city{display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:10px;font-size:14px;transition:.15s;animation:up .3s both}.city:hover{background:#ecfdf8}
+.ar{cursor:pointer;color:var(--p);width:22px;text-align:center;font-size:13px;transition:.2s}.ar:hover{transform:scale(1.3)}#list input{accent-color:var(--p)}
+.sub{margin:0 0 8px 34px;padding:8px 12px;border-left:3px solid #5eead4;background:#f0fdfa;border-radius:0 10px 10px 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:2px 12px;animation:up .3s both}
+.sub>span{grid-column:1/-1}.sub label{display:flex;gap:7px;font-size:13px;padding:3px 0}.sub a{grid-column:1/-1;font-size:12px;color:var(--p);cursor:pointer;font-weight:600}
+.bar{height:12px;background:#e8eef3;border-radius:9px;overflow:hidden;margin:14px 0}
+.bar i{display:block;height:100%;width:0;border-radius:9px;background:repeating-linear-gradient(45deg,#14b8a6 0 10px,#0d9488 10px 20px);background-size:40px 100%;animation:stripes .8s linear infinite;transition:width .5s}
+table{width:100%;border-collapse:collapse;font-size:13px}th{text-align:left;background:#f1f6f9;padding:12px 10px;color:var(--m);font-weight:600;white-space:nowrap;font-size:12px;text-transform:uppercase;letter-spacing:.05em;position:sticky;top:0}
+td{padding:12px 10px;border-top:1px solid #edf1f5;vertical-align:middle;word-break:break-word;transition:background .15s}
+#tb tr{animation:up .45s both}#tb tr:nth-child(2){animation-delay:.04s}#tb tr:nth-child(3){animation-delay:.08s}#tb tr:nth-child(4){animation-delay:.12s}#tb tr:nth-child(5){animation-delay:.16s}#tb tr:nth-child(n+6){animation-delay:.2s}
+tr:hover td{background:#f0fdfa}td a{color:var(--pd);text-decoration:none;font-weight:500}td a:hover{text-decoration:underline}
+.ic{display:inline-block;margin-right:5px;vertical-align:middle}.ic svg{width:26px;height:26px;transition:.2s}.ic:hover svg{transform:scale(1.2) rotate(-6deg)}
+@media(max-width:900px){.app{grid-template-columns:1fr}aside{position:static;height:auto}.stats{grid-template-columns:1fr}main{padding:18px}.hero h2{font-size:23px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><div class="app">
+<aside>
+ <div class="logo"><i>🧤</i><div>Gloves Lead Finder<small>B2B LEAD GENERATION</small></div></div>
+ <h4>Gloves type</h4>
+ <label class="opt"><input type="checkbox" name="cat" value="sports" checked>🏅 Sports gloves</label>
+ <label class="opt"><input type="checkbox" name="cat" value="boxing">🥊 Boxing gloves</label>
+ <label class="opt"><input type="checkbox" name="cat" value="medical">🩺 Medical gloves</label>
+ <label class="opt"><input type="checkbox" name="cat" value="surgical">🔬 Surgical gloves</label>
+ <h4>Country</h4><select id="country" onchange="load()"></select>
+ <h4>Results per search</h4><input type="number" id="max" value="20" min="5" max="60">
+ <button id="go" onclick="start()">🔍 Start search</button>
+ <div class="out"><a href="/logout">⎋ Logout</a></div>
+</aside>
+<main>
+ <div class="hero"><h2>Find gloves buyers, worldwide.</h2><p>Country aur cities chuno, gloves type select karo, phir Start dabao. Phone, email, owner aur social links ek clean report mein milenge, Excel ya PDF mein download karo.</p></div>
+ <div class="stats"><div class="st"><span>Cities selected</span><b id="sc">0</b></div><div class="st"><span>Towns selected</span><b id="st">0</b></div><div class="st"><span>Searches to run</span><b id="est">0</b></div></div>
+ <div class="card"><div class="h">Select cities &amp; towns <span class="m">▸ kholo to us city ke towns aayenge</span></div>
+  <div class="row"><input type="text" id="q" placeholder="🔍 Search city..." oninput="draw()" style="flex:1;min-width:160px">
+   <button class="g" onclick="all_(1)">Select all</button><button class="g" onclick="all_(0)">Clear</button>
+   <button class="g" onclick="allT()">+ Towns of selected</button></div>
+  <div class="row" style="margin-top:8px"><input type="text" id="extra" placeholder="Add own city/town" style="flex:1"><button class="g" onclick="addX()">Add</button></div>
+  <div id="list"></div></div>
+ <div class="card" id="prog" style="display:none"><div class="h" id="pt">Searching...</div><div class="bar"><i id="pb"></i></div><div class="m" id="pl"></div>
+  <p style="margin:12px 0 0"><button class="g" onclick="fetch('/api/stop',{method:'POST'})">Stop</button></p></div>
+ <div class="card" id="res" style="display:none"><div class="row" style="justify-content:space-between;margin-bottom:12px"><div class="h" id="rt" style="margin:0"></div>
+  <div class="row"><button class="p" onclick="location='/download'">⬇ Excel</button><button class="g" onclick="pdf()">⬇ PDF</button></div></div>
+  <div style="overflow:auto"><table id="tb"></table></div></div>
+</main></div>
+<script>
+let C=[],sel=new Set(),open_=new Set(),extra=[],T={},ERR={},LEADS=[],timer;const $=id=>document.getElementById(id);
+const cats=()=>[...document.querySelectorAll('[name=cat]:checked')].map(x=>x.value);
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const J=async u=>(await fetch(u)).json(),cn=()=>$('country').value;
+(async()=>{const L=await J('/api/countries');$('country').innerHTML=L.map(c=>`<option>${esc(c)}</option>`).join('');$('country').value='Canada';load()})();
+async function load(){sel.clear();open_.clear();extra=[];T={};ERR={};C=[];$('list').innerHTML='<span class="m">⏳ Cities load ho rahe hain...</span>';
+ const r=await J('/api/cities?country='+encodeURIComponent(cn()));C=r.cities;if(r.warn)alert(r.warn);draw()}
+function draw(){const f=$('q').value.toLowerCase();let h='',n=0,tot=0;
+ for(const x of [...extra,...C]){if(f&&!x.toLowerCase().includes(f))continue;tot++;if(n>=400)continue;n++;
+  h+=`<div class="city"><span class="ar" data-k="${esc(x)}" onclick="tgl(this.dataset.k)">${open_.has(x)?'▾':'▸'}</span><label style="display:flex;gap:7px;flex:1"><input type="checkbox" data-k="${esc(x)}" ${sel.has(x)?'checked':''} onchange="tg(this.dataset.k,this.checked)"> ${esc(x)}</label></div>`;
+  if(open_.has(x)){const t=T[x];h+='<div class="sub">'+(t===undefined?(ERR[x]?'<span class="m">⚠ Towns server se jawab nahi aaya'+(ERR[x]!==1?' ('+esc(ERR[x])+')':'')+'.</span> <a data-k="'+esc(x)+'" onclick="retry(this.dataset.k)">↻ Retry</a>':'<span class="m">⏳ Towns load ho rahe hain...</span>'):!t.length?'<span class="m">Koi town nahi mila</span>':
+   `<a data-k="${esc(x)}" onclick="allTowns(this.dataset.k)">✔ Select all towns of ${esc(x)}</a>`+t.map(w=>`<label><input type="checkbox" data-k="${esc(w+', '+x)}" ${sel.has(w+', '+x)?'checked':''} onchange="tg(this.dataset.k,this.checked)"> ${esc(w)}</label>`).join(''))+'</div>'}}
+ if(tot>n)h+=`<p class="m" style="padding:8px">${tot-n} aur cities hain: upar search box mein naam likho.</p>`;
+ $('list').innerHTML=h||'<span class="m">Kuch nahi mila</span>';upd()}
+async function towns(x){if(T[x]===undefined){try{const r=await J(`/api/towns?country=${encodeURIComponent(cn())}&city=${encodeURIComponent(x)}`);if(r.err){ERR[x]=r.msg||1;return r.towns||[]}delete ERR[x];T[x]=r.towns}catch(e){ERR[x]=1;return []}}return T[x]}
+async function retry(x){delete ERR[x];delete T[x];draw();await towns(x);draw()}
+async function tgl(x){if(open_.has(x)){open_.delete(x);draw()}else{open_.add(x);delete ERR[x];draw();await towns(x);draw()}}
+function allTowns(x){(T[x]||[]).forEach(w=>sel.add(w+', '+x));draw()}
+function tg(x,on){on?sel.add(x):sel.delete(x);upd()}
+function all_(on){sel.clear();if(on)[...extra,...C].forEach(x=>sel.add(x));draw()}
+async function allT(){const L=[...sel].filter(x=>!x.includes(','));for(let i=0;i<L.length;i++){$('est').textContent='⏳ '+(i+1)+'/'+L.length;await towns(L[i]);allTowns(L[i])}draw()}
+function addX(){const v=$('extra').value.trim();if(v){extra.push(v);sel.add(v);$('extra').value='';draw()}}
+function upd(){const nt=[...sel].filter(x=>x.includes(',')).length;$('sc').textContent=sel.size-nt;$('st').textContent=nt;$('est').textContent=sel.size*cats().length*(cn()=='Germany'?3:2)}
+document.querySelectorAll('[name=cat]').forEach(x=>x.onchange=upd);
+async function start(){const r=await fetch('/api/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({country:cn(),places:[...sel],cats:cats(),max:$('max').value})});
+ const j=await r.json();if(!r.ok)return alert(j.error);$('prog').style.display='block';$('res').style.display='none';$('go').disabled=true;$('go').textContent='⏳ Searching...';timer=setInterval(poll,2000);$('prog').scrollIntoView({behavior:'smooth'})}
+// ---- icons + links
+const SVG=(bg,inner)=>`<svg viewBox="0 0 26 26"><rect width="26" height="26" rx="7" fill="${bg}"/>${inner}</svg>`;
+const T_=(t,s=13)=>`<text x="13" y="${s+4}" text-anchor="middle" font-family="Arial" font-weight="700" font-size="${s}" fill="#fff">${t}</text>`;
+const ICO={facebook:SVG('#1877f2',T_('f',17)),linkedin:SVG('#0a66c2',T_('in',12)),twitter:SVG('#000',T_('X',14)),
+ youtube:SVG('#ff0000','<path d="M10 8.5v9l8-4.5z" fill="#fff"/>'),tiktok:SVG('#111',T_('♪',15)),
+ instagram:`<svg viewBox="0 0 26 26"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#feda75"/><stop offset=".5" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect width="26" height="26" rx="7" fill="url(#ig)"/><rect x="6" y="6" width="14" height="14" rx="4" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="13" cy="13" r="3.3" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="17.2" cy="8.8" r="1" fill="#fff"/></svg>`};
+const soc=l=>Object.keys(ICO).filter(k=>l[k]).map(k=>`<a class="ic" href="${esc(l[k])}" target="_blank" title="${k}">${ICO[k]}</a>`).join('')||'-';
+const url=u=>/^https?:/i.test(u)?u:'http://'+u;
+const web=u=>u?`<a href="${esc(url(u))}" target="_blank">🌐 ${esc(u.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))}</a>`:'-';
+const mail=e=>e?`<a href="mailto:${esc(e)}">✉ ${esc(e)}</a>`:'-';
+const tel=p=>p?`<a href="tel:${esc(String(p).replace(/[^\d+]/g,''))}">📞 ${esc(p)}</a>`:'-';
+async function poll(){const s=await J('/api/status');const p=s.total?s.done/s.total*100:0;
+ $('pb').style.width=(s.phase=='contacts'?95:p)+'%';
+ $('pt').textContent=s.phase=='contacts'?'Finalizing contact details...':`Searching... ${s.done} / ${s.total}`;
+ $('pl').textContent=s.msg||`${s.saved} leads found so far`;
+ if(!s.running){clearInterval(timer);$('go').disabled=false;$('go').textContent='🔍 Start search';$('prog').style.display=s.msg?'block':'none';$('res').style.display='block';LEADS=s.leads;
+  $('rt').textContent=`${LEADS.length} leads found`;
+  $('tb').innerHTML='<tr><th>Business</th><th>Phone</th><th>Email</th><th>Website</th><th>City</th><th>Owner</th><th>Social</th></tr>'+LEADS.map(l=>`<tr><td><b>${esc(l.business_name)}</b></td><td>${tel(l.phone)}</td><td>${mail(l.email)}</td><td>${web(l.website)}</td><td>${esc(l.city)}</td><td>${esc(l.owner_name)||'-'}</td><td>${soc(l)}</td></tr>`).join('');
+  $('res').scrollIntoView({behavior:'smooth'})}}
+function pdf(){const w=window.open('','_blank');
+ w.document.write(`<html><head><title>Gloves leads</title><style>@page{size:A4 landscape;margin:12mm}body{font:11px Arial,sans-serif;color:#111}h2{margin:0 0 4px}p{margin:0 0 10px;color:#555}
+ table{width:100%;border-collapse:collapse;table-layout:fixed}th{background:#0f766e;color:#fff;text-align:left;padding:6px}td{padding:6px;border-bottom:1px solid #ddd;vertical-align:middle;word-wrap:break-word}tr{page-break-inside:avoid}a{color:#0f766e;text-decoration:none}.ic{margin-right:4px}.ic svg{width:20px;height:20px;vertical-align:middle}</style></head><body>
+ <h2>Gloves Leads Report</h2><p>${LEADS.length} leads - ${new Date().toLocaleDateString()}</p><table><tr><th style="width:17%">Business</th><th style="width:12%">Phone</th><th style="width:17%">Email</th><th style="width:18%">Website</th><th style="width:8%">City</th><th style="width:10%">Owner</th><th style="width:18%">Social</th></tr>`+
+ LEADS.map(l=>`<tr><td><b>${esc(l.business_name)}</b></td><td>${tel(l.phone)}</td><td>${mail(l.email)}</td><td>${web(l.website)}</td><td>${esc(l.city)}</td><td>${esc(l.owner_name)}</td><td>${soc(l)}</td></tr>`).join('')+
+ '</table><script>setTimeout(()=>print(),500)<\/script></body></html>');w.document.close()}
+</script></body></html>

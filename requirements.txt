@@ -1,0 +1,7 @@
+flask
+openpyxl
+beautifulsoup4
+lxml
+httpx
+ddgs
+duckduckgo-search

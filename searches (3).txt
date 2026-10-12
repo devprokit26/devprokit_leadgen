@@ -1,0 +1,56 @@
+# searches.txt - yahan likho kya dhoondna hai.
+# Jis line ke shuru mein # ho wo ignore hoti hai.
+# Har KEYWORD har PLACE ke sath mil kar ek Google Maps search banta hai.
+# Misal: 2 keywords x 5 shehar = 10 searches.
+
+[keywords]
+safety gloves supplier
+Arbeitshandschuhe Grosshandel
+# work gloves wholesaler
+# medical gloves distributor
+# Arbeitsschutz Grosshandel
+
+[places]
+Hamburg, Germany
+Berlin, Germany
+Muenchen, Germany
+Koeln, Germany
+Frankfurt, Germany
+
+# Sirf wo businesses rakhi jayengi jin ke naam / website ke address / website ke home page
+# mein inme se koi lafz ho. Apni zarurat ke hisab se badal sakte ho.
+[relevant_words]
+glove
+handschuh
+arbeitsschutz
+schutzausruestung
+workwear
+arbeitskleidung
+protective equipment
+safety equipment
+guantes
+guanti
+gants
+ppe
+
+# In lafzon mein se koi bhi business ke naam, website address ya website ke title/description mein ho
+# to wo lead reject ho jati hai (golf/boxing/motorbike gloves, baumarkt wagera).
+[exclude_words]
+golf
+sport
+fitness
+fight
+boxen
+boxing
+motorrad
+softair
+toys
+spielzeug
+bootsbeschl
+bootsladen
+baumarkt
+nutrition
+dainese
+segeln
+angeln
+reiten
